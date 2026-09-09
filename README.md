@@ -112,7 +112,13 @@ graph LR
 
 ## 🚀 Instalasi
 
-### 1️⃣ Install dependencies
+### 1️⃣ Clone repository
+```bash
+git clone https://github.com/carlihost/Backup-server.git
+cd Backup-server
+```
+
+### 2️⃣ Install dependencies
 ```bash
 apt update && apt install -y rclone tar
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
@@ -120,7 +126,7 @@ apt install -y nodejs
 node -v
 ```
 
-### 2️⃣ Setup rclone untuk Mega.nz
+### 3️⃣ Setup rclone untuk Mega.nz
 
 Jalankan:
 ```bash
@@ -162,13 +168,13 @@ Jika muncul `test.txt` di hasil `rclone ls`, koneksi ke Mega sudah berhasil.
 > [!TIP]
 > Belum punya akun Mega? Daftar gratis (kuota 20GB) di [mega.nz](https://mega.nz) — bisa langsung dari browser HP, tidak perlu OAuth atau device tambahan.
 
-### 3️⃣ Simpan script backup
+### 4️⃣ Simpan script backup
 ```bash
 nano /root/backup-nexsora.js
 ```
 Paste isi script dari file [`backup-nexsora.js`](./backup-nexsora.js), sesuaikan variabel `SERVER_DIR` dengan path folder server kamu.
 
-### 4️⃣ Test manual
+### 5️⃣ Test manual
 ```bash
 node /root/backup-nexsora.js
 ```
