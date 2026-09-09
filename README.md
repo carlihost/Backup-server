@@ -85,10 +85,10 @@ Script ini melakukan backup otomatis harian untuk server Minecraft, meng-compres
 
 | File | Lokasi | Keterangan |
 |---|---|---|
-| 📜 Script backup | `/root/backup-nexsora.js` | Script utama (Node.js) |
-| 📄 Log backup | `/root/backup.log` | Riwayat proses backup |
+| 📜 Script backup | `/root/Backup-server/backup-nexsora.js` | Script utama (Node.js) |
+| 📄 Log backup | `/root/Backup-server/backup.log` | Riwayat proses backup |
 | 🔑 Config rclone | `/root/.config/rclone/rclone.conf` | Kredensial Mega |
-| ⚙️ Config PM2 | `/root/backup-ecosystem.config.js` | Jadwal cron |
+| ⚙️ Config PM2 | `/root/Backup-server/backup-ecosystem.config.js` | Jadwal cron |
 | 🗂️ Folder server | `/var/lib/pterodactyl/volumes/<UUID>` | Data server Minecraft |
 | ☁️ Folder tujuan | `mega:NexSoraBackups` | Tujuan upload backup |
 
@@ -168,15 +168,15 @@ Jika muncul `test.txt` di hasil `rclone ls`, koneksi ke Mega sudah berhasil.
 > [!TIP]
 > Belum punya akun Mega? Daftar gratis (kuota 20GB) di [mega.nz](https://mega.nz) — bisa langsung dari browser HP, tidak perlu OAuth atau device tambahan.
 
-### 4️⃣ Simpan script backup
+### 4️⃣ Sesuaikan konfigurasi script
+File `backup-nexsora.js` sudah tersedia dari hasil clone. Edit variabel `SERVER_DIR` agar sesuai dengan path folder server kamu:
 ```bash
-nano /root/backup-nexsora.js
+nano /root/Backup-server/backup-nexsora.js
 ```
-Paste isi script dari file [`backup-nexsora.js`](./backup-nexsora.js), sesuaikan variabel `SERVER_DIR` dengan path folder server kamu.
 
 ### 5️⃣ Test manual
 ```bash
-node /root/backup-nexsora.js
+node /root/Backup-server/backup-nexsora.js
 ```
 
 ## ⏰ Menjalankan Otomatis dengan PM2
@@ -186,15 +186,13 @@ node /root/backup-nexsora.js
 npm install -g pm2
 ```
 
-### Buat file konfigurasi
-```bash
-nano /root/backup-server/backup-ecosystem.config.js
-```
+### File konfigurasi PM2
+File `backup-ecosystem.config.js` juga sudah tersedia dari hasil clone (isi sudah sesuai):
 ```javascript
 module.exports = {
   apps: [{
     name: "nexsora-backup",
-    script: "/root/backup-server/backup-nexsora.js",
+    script: "/root/Backup-server/backup-nexsora.js",
     interpreter: "node",
     cron_restart: "0 20 * * *",
     autorestart: false,
@@ -206,7 +204,7 @@ module.exports = {
 
 ### Jalankan
 ```bash
-pm2 start /root/backup-ecosystem.config.js
+pm2 start /root/Backup-server/backup-ecosystem.config.js
 pm2 save
 pm2 startup
 ```
@@ -215,10 +213,10 @@ pm2 startup
 
 ```bash
 # Jalankan backup manual
-node /root/backup-nexsora.js
+node /root/Backup-server/backup-nexsora.js
 
 # Lihat log backup
-cat /root/backup.log
+cat /root/Backup-server/backup.log
 
 # Lihat log via PM2
 pm2 logs nexsora-backup
@@ -238,7 +236,7 @@ rclone lsd mega:
 
 ## 🗑️ Mengubah Retensi Backup
 
-Edit `/root/backup-nexsora.js`, cari baris:
+Edit `/root/Backup-server/backup-nexsora.js`, cari baris:
 ```javascript
 const RETENTION_DAYS = '7d';
 ```
