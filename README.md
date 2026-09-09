@@ -188,13 +188,13 @@ npm install -g pm2
 
 ### Buat file konfigurasi
 ```bash
-nano /root/backup-ecosystem.config.js
+nano /root/backup-server/backup-ecosystem.config.js
 ```
 ```javascript
 module.exports = {
   apps: [{
     name: "nexsora-backup",
-    script: "/root/backup-nexsora.js",
+    script: "/root/backup-server/backup-nexsora.js",
     interpreter: "node",
     cron_restart: "0 20 * * *",
     autorestart: false,
