@@ -42,7 +42,7 @@
 
 
 
-![CarliHost](https://img.shields.io/badge/CarliHost-000000?style=flat-square)
+![MasCarli](https://img.shields.io/badge/CarliHost-000000?style=flat-square)
 
 
 
@@ -120,7 +120,7 @@ cd Backup-server
 
 ### 2️⃣ Install dependencies
 ```bash
-apt update && apt install -y rclone tar
+curl https://rclone.org/install.sh | sudo bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
 apt install -y nodejs
 node -v
